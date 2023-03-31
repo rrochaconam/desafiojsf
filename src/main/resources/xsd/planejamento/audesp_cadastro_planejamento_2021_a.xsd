@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tce.sp.gov.br/audesp/xml/planejamento" version="1.0" xml:lang="pt-BR" xmlns:aux="http://www.tce.sp.gov.br/audesp/xml/auxiliar"  xmlns:gen="http://www.tce.sp.gov.br/audesp/xml/generico"  xmlns:ppl="http://www.tce.sp.gov.br/audesp/xml/planejamento" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/generico" schemaLocation="../generico/AUDESP_TIPOSGENERICOS_2021_A.XSD"/>
+	
+<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/auxiliar" schemaLocation="../auxiliar/AUDESP_TABELASAUXILIARES_2021_A.XSD"/>
+	
+<xs:include schemaLocation="./AUDESP_PECAS_PLANEJAMENTO_2021_A.XSD"/>
+<xs:include schemaLocation="./AUDESP_CADASTRO_PLANEJAMENTO_ODS_2021_A.XSD"/>
+	
+<!-- Namespaces: pecasplanejamento - prefixo: ppl Conteudo: validação dos  valores básicos das Pecas de Planejamento  -->
+	
+<!-- ========================================================================= -->
+	<xs:annotation>
+		<xs:documentation>
+			<Data>2021-01-15</Data>
+			<VersaoRevisaoAnterior/>
+			<VersaoRevisaoNova>2021_A</VersaoRevisaoNova>
+			<Descricao>Base-Line para 2021</Descricao>
+			<Justificativa>Modelo para inicio de 2021</Justificativa>
+			<Autor>Audesp</Autor>
+		</xs:documentation>
+	</xs:annotation>  
+	<!-- ======================================================================== -->
+	<!-- ultima verificação   2012-11-20    -->
+	<!-- ======================================================================== -->
+	<xs:complexType name="LeisDecretos_t">
+		<xs:sequence>
+			<xs:element name="Legislacao" type="aux:LegislacaoMunicipalComDatas_t"/>
+			<xs:element name="Descricao">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element> 
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="Indicador_t">
+		<xs:sequence>
+			<xs:element name="CodigoIndicador" type="ppl:CodigoIndicador_t"/>
+			<xs:element name="NomeIndicador" type="ppl:NomeIndicador_t"/>
+			<xs:element name="UnidadeMedida" type="ppl:UnidadeMedida_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ======================================================================== -->
+	<xs:complexType name="MetasOds_t">
+		<xs:sequence>
+			<xs:element name="CodigoMeta" type="ppl:CodigoMeta_t" maxOccurs="unbounded" minOccurs="1"/>			
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ======================================================================== -->
+	<xs:complexType name="Ods_t">
+		<xs:sequence>
+			<xs:element name="CodigoODS" type="ppl:CodigoOds_t" />
+			<xs:element name="Metas" type="ppl:MetasOds_t" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ======================================================================== -->
+	<xs:complexType  name="Programa_t">
+		<xs:sequence>
+			<xs:element name="NumeroPrograma" type="gen:CodigoPrograma_t"/>
+			<xs:element name="TipoPrograma" type="gen:TipoPrograma_t"/>
+			<xs:element name="ClassificacaoPrograma" type="gen:ClassificacaoPrograma_t"/>
+			<xs:element name="NomePrograma">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ObjetivoPrograma">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="JustificativaPrograma" type="gen:Justificativa_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="Indicador" type="ppl:Indicador_t"/>	
+			<xs:choice>
+				<xs:element name="NaoAtreladoODS" />
+				<xs:element name="Ods" type="ppl:Ods_t" maxOccurs="unbounded" minOccurs="1" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<!-- ======================================================================== -->
+	<xs:complexType name="Acao_t">
+		<xs:sequence>
+			<xs:element name="AcaoGoverno" type="gen:AcaoGoverno_t" />
+			<xs:element name="NomeAcao">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MetaAcao" >
+			         <xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="5"/>
+					<xs:maxLength value="100"/>
+				</xs:restriction>
+			         </xs:simpleType>
+			 </xs:element>
+			<xs:element name="UnidadeMedidaAcao" type="ppl:UnidadeMedida_t"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- ======================================================================== -->
+	
+	<xs:complexType  name="CadastroIndicadores_t">
+		<xs:sequence>
+			<xs:element name="NumeroPrograma" type="gen:CodigoPrograma_t"/>
+			<xs:element  maxOccurs="unbounded" minOccurs="1" name="Indicador" type="ppl:Indicador_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ======================================================================== -->
+	<xs:element name="CadastroPlanejamento">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Descritor" type="gen:DescritorPlanejamento_t"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="LeisDecretos" type="ppl:LeisDecretos_t"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="Programa" type="ppl:Programa_t"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="Acao" type="ppl:Acao_t"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="CadastroIndicadores" type="ppl:CadastroIndicadores_t"/>				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+</xs:schema>

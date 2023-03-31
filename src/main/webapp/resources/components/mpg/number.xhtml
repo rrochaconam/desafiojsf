@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:mcl="http://java.sun.com/jsf/composite/components/mcl">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="required" required="false" />
+	<composite:attribute name="readonly" required="false" default="false" />
+	<composite:attribute name="disabled" required="false" default="false" />
+	<composite:attribute name="ajax" default="false" />
+	<composite:attribute name="listener" method-signature="void Listener()" />
+	<composite:attribute name="update" />
+	<composite:attribute name="identificador" default="#{cc.id}" />
+	<composite:attribute name="label" required="false" />
+	<composite:attribute name="maxValue" required="false" default="99999999" />
+	<composite:attribute name="minValue" required="false" default="0" />
+	<composite:attribute name="noProcess" type="java.lang.Boolean" default="false" />
+	<composite:attribute name="modoConsulta" type="java.lang.Boolean" default="false" />
+	<composite:attribute name="global" type="java.lang.Boolean" default="true" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<label class="input" jsf:rendered="#{not cc.attrs.modoConsulta}">
+		<p:outputLabel for="#{cc.id}:#{cc.attrs.identificador}" value="#{cc.attrs.label}" styleClass="label" />
+		<p:inputNumber id="#{cc.id}" value="#{cc.attrs.value}" required="#{cc.attrs.required}" readonly="#{cc.attrs.readonly}" disabled="#{cc.attrs.disabled}"
+			minValue="#{cc.attrs.minValue}" maxValue="#{cc.attrs.maxValue}" decimalPlaces="0" thousandSeparator="." decimalSeparator=","
+			style="text-align:right" styleClass="#{cc.attrs.noProcess ? 'noProcess' : ''}">
+			<p:ajax event="change" listener="#{cc.attrs.listener}" update="#{cc.attrs.update}" disabled="#{not cc.attrs.ajax}" global="#{cc.attrs.global}" />
+		</p:inputNumber>
+	</label>
+	<div style="text-align: right;" jsf:rendered="#{cc.attrs.modoConsulta}">
+		<h:outputText value="#{cc.attrs.value}" />
+	</div>
+</composite:implementation>
+
+</html>

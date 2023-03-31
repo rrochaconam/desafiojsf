@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+		
+		<!-- PAGE FOOTER -->
+		<div class="page-footer">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<span class="txt-color-white">Conam - Planejamento e Gestão - #{sessaoMPG.versao} © 2022</span>
+				</div>
+				<div class="col-xs-6 col-sm-6 text-right hidden-xs">
+					<div class="txt-color-white inline-block">
+						<i class="txt-color-blueLight hidden-mobile">Último Acesso <i class="fa fa-clock-o"></i> <strong><h:outputText value="#{sessaoMPG.ultimoAcessoFormatado}" /></strong> </i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END PAGE FOOTER -->
+		
+		<!--  USER AREA -->
+		<div id="shortcut">
+			<ul>
+				<li>
+					<a href="#{request.contextPath}/pages/suporte/operador/operador_senha_editar.xhtml" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>Meu Usuário</span> </span> </a>
+				</li>
+			</ul>
+		</div>
+		<!--  END USER AREA -->
+		
+		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+		<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+		<script src="#{request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
+		<script src="#{request.contextPath}/resources/js/app.config.js"></script>
+		<script src="#{request.contextPath}/resources/js/app.min.js"></script>
+		<script src="https://mensageria.conam.com.br/js/mensageria.js"></script>
+		
+		<script>
+			PrimeFaces.locales['pt'] = {  
+                closeText: 'Fechar',  
+                prevText: '&lt;',  
+                nextText: '&gt;',  
+                currentText: 'Começo',  
+                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],  
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],  
+                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],  
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],  
+                dayNamesMin: ['D','S','T','Q','Q','S','S'],  
+                weekHeader: 'Semana',  
+                firstDay: 1,  
+                isRTL: false,  
+                showMonthAfterYear: false,  
+                yearSuffix: '',  
+                timeOnlyTitle: 'Só Horas',  
+                timeText: 'Tempo',  
+                hourText: 'Hora',  
+                minuteText: 'Minuto',  
+                secondText: 'Segundo',  
+                currentText: 'Data Atual',  
+                ampm: false,  
+                month: 'Mês',  
+                week: 'Semana',  
+                day: 'Dia',  
+                allDayText : 'Todo Dia'  
+            };
+		</script>
+		<script>
+			/*
+			* função para permitir a digitação de números decimais e inteiros
+			*/
+			function ForceNumericInput(event, This, AllowDecimal, AllowMinus){
+			
+				if(arguments.length == 1)
+				{
+					var s = This.value;
+					// garante que o sinal de "-" seja o primeiro do índice
+					var i = s.lastIndexOf("-");
+					if(i == -1)
+					return;
+					if(i != 0)
+					This.value = s.substring(0,i)+s.substring(i+1);
+					return;
+				}
+				switch(event.keyCode)
+				{
+					case 8:     // backspace
+					case 9:     // tab
+					case 37:    // left arrow
+					case 39:    // right arrow
+					case 46:    // delete
+					case 110:    // virgula
+					event.returnValue = true;
+					return;
+				}
+				if(event.keyCode == 189)     // sinal de número de negativo
+				{
+					if(AllowMinus == false)
+					{
+						CancelEventExecution(event);
+						return;
+					}
+					// aguarda até que o controle tenha sido atualizado
+					var s = "ForceNumericInput(document.getElementById('"+This.id+"'))";
+					setTimeout(s, 250);
+					return;
+				}
+				if(AllowDecimal &amp;&amp; event.keyCode == 188)
+				{
+					if(This.value.indexOf(",") &gt;= 0)
+					{
+						// restringe a digitação de apenas uma vírgula
+						CancelEventExecution(event);
+						return;
+					}
+					event.returnValue = true;
+					return;
+				}
+				// permite caracteres entre 0 e 9
+				if(event.keyCode &gt;= 48 &amp;&amp; event.keyCode &lt;= 57)
+				{
+					event.returnValue = true;
+					return;
+				}
+				if(event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 105)
+				{
+					event.returnValue = true;
+					return;
+				}
+				CancelEventExecution(event);
+			}
+				/*
+				* Cancela a execução de uma function mapeada por um evento
+				*/
+			function CancelEventExecution(event){
+				if (navigator.appName == "Netscape")
+				{
+					event.preventDefault();
+				}
+				else
+				{
+					event.returnValue = false;
+				}
+			}
+
+			/*
+			* Funcao formata campo em moeda
+			*/
+			function moeda(z){  
+				v = z.value;
+				v=v.replace(/\D/g,"") // permite digitar apenas numero
+				v=v.replace(/(\d{1})(\d{14})$/,"$1.$2") // coloca ponto antes dos ultimos digitos
+				v=v.replace(/(\d{1})(\d{11})$/,"$1.$2") // coloca ponto antes dos ultimos 11 digitos
+				v=v.replace(/(\d{1})(\d{8})$/,"$1.$2") // coloca ponto antes dos ultimos 8 digitos
+				v=v.replace(/(\d{1})(\d{5})$/,"$1.$2") // coloca ponto antes dos ultimos 5 digitos
+				v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2") // coloca virgula antes dos ultimos 2 digitos
+				z.value = v;
+			}
+			// <![CDATA[
+				$(document).mouseup(function(e) 
+				{
+				    var container = $('.dropdown-menu');
+	
+				    // if the target of the click isn't the container nor a descendant of the container
+				    if (!container.is(e.target) && container.has(e.target).length === 0) 
+				    {
+				        container.hide();
+				    }
+				});
+			// ]]>
+		 </script>
+</html>

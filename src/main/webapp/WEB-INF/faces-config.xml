@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+
+	<navigation-rule>
+
+		<navigation-case>
+			<from-outcome>inicial</from-outcome>
+			<to-view-id>/pages/index.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/public/login.xhtml</to-view-id>
+			<redirect>
+				true
+			</redirect>
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<factory>
+		<exception-handler-factory>
+			br.com.conam.desafiojsf.util.ExceptionHandlerFacesFactory
+		</exception-handler-factory>
+	</factory>
+	
+	<application>
+		<!-- Define arquivo que contem as mensagens da aplicacao -->
+		<resource-bundle>
+			<base-name>ApplicationMessages</base-name>
+			<var>appMessages</var>
+		</resource-bundle>
+
+		<!-- Define arquivo customizado para as mensagens das validacoes JSF e 
+			BeanValidation. -->
+		<message-bundle>ValidationMessages</message-bundle>
+
+	</application>
+	
+</faces-config>

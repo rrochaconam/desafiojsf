@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:mpg="http://java.sun.com/jsf/composite/components/mpg">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="message" required="true" />
+	<composite:attribute name="action" required="true" method-signature="java.lang.String action()" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<p:dialog header="Aviso" widgetVar="alertModal" modal="true" closeOnEscape="true" draggable="true" 
+		position="center center" onShow="PF('alertModal').initPosition()" responsive="true" resizable="false"
+		closable="true">
+	    <h:outputText value="#{cc.attrs.message}" escape="false" />
+	    	
+    	<f:facet name="footer">
+               <p:commandLink value="Cancelar" onclick="PF('alertModal').hide();" style="float: left;margin-top: 5px;"
+                   styleClass="btn btn-primary btn-sm" immediate="true" />
+               <p:commandLink value="Confirmar" action="#{cc.attrs.action}" style="float: right;margin-top: 5px;"
+                  	styleClass="btn btn-success btn-sm" onclick="PF('alertModal').hide();" />
+           </f:facet>
+	</p:dialog>
+</composite:implementation>
+
+</html>	

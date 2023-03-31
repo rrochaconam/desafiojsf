@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="inputIdCodigo" required="false" default="#{cc.id}" />
+	<composite:attribute name="inputIdDescricao" required="false" default="descricao" />
+	<composite:attribute name="inputCodigoValue" required="true" />
+	<composite:attribute name="inputDescricaoValue" required="true" />
+	<composite:attribute name="inputObject" required="true" />
+	<composite:attribute name="managedBean" required="true" />
+	<composite:attribute name="autoComplete" required="true" method-signature="void Buscar(java.lang.Long)" />
+	<composite:attribute name="limpar" required="true" method-signature="void Limpar(java.lang.Long)" />
+	<composite:attribute name="update" required="false" default="" />
+	<composite:attribute name="mask" required="false" default="" />
+	<composite:attribute name="width" required="false" default="60px" />
+	<composite:attribute name="title" required="true" />
+	<composite:attribute name="readonly" required="true" />
+	<composite:attribute name="label" required="true" />
+	<composite:attribute name="parametro" />
+	<composite:attribute name="required" required="false" default="false" type="java.lang.Boolean" />
+	<composite:attribute name="listener" required="false" method-signature="void rowSelect(org.primefaces.event.SelectEvent)" default="#{cc.attrs.managedBean.populaValores}" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<p:outputLabel for="#{cc.id}:#{cc.attrs.inputIdCodigo}" value="#{cc.attrs.label}" styleClass="label" />
+	<label class="input">
+		<table style="width:100%">
+			<tr>
+				<td style="width:1%">
+					<p:inputText id="#{cc.attrs.inputIdCodigo}#{cc.attrs.mask eq '' ? '' : 'inativo'}" value="#{cc.attrs.inputCodigoValue}" readonly="#{cc.attrs.readonly}" 
+						style="width: #{cc.attrs.width}; margin-right: 2px;" required="#{cc.attrs.required}" rendered="#{cc.attrs.mask eq ''}">
+						<p:ajax event="blur" listener="#{cc.attrs.autoComplete}" update="#{cc.clientId}:#{cc.attrs.inputIdCodigo} #{cc.clientId}:#{cc.attrs.inputIdDescricao} #{cc.clientId}:table #{cc.attrs.update}" />
+					</p:inputText>
+					<p:inputMask id="#{cc.attrs.inputIdCodigo}#{cc.attrs.mask eq '' ? 'inativo' : ''}" value="#{cc.attrs.inputCodigoValue}" readonly="#{cc.attrs.readonly}" 
+						style="width: #{cc.attrs.width}; margin-right: 2px;" required="#{cc.attrs.required}" mask="#{cc.attrs.mask}" rendered="#{cc.attrs.mask != ''}">
+						<p:ajax event="blur" listener="#{cc.attrs.autoComplete}" update="#{cc.clientId}:#{cc.attrs.inputIdCodigo} #{cc.clientId}:#{cc.attrs.inputIdDescricao} #{cc.clientId}:table #{cc.attrs.update}" />
+					</p:inputMask>
+				</td>
+				<td style="width:1%" jsf:rendered="#{not cc.attrs.readonly}">
+					<p:commandButton value="" styleClass="btn btn-default btn-sm" oncomplete="PF('#{cc.clientId}').show();"
+						update="#{cc.clientId}:panelGroup" immediate="true" icon="fa fa-search"
+						style="width: 33px; height: 32px; margin-right: 2px;">
+						<f:setPropertyActionListener target="#{cc.attrs.managedBean.showPopup}" value="#{true}" />
+					</p:commandButton>
+	            </td>
+	            <td style="width:1%" jsf:rendered="#{not cc.attrs.readonly}">
+					<h:commandLink value="" immediate="true" styleClass="btn btn-info btn-sm noProcess" style="margin-right: 2px;">
+		            	<i class="fa fa-eraser" aria-hidden="true"></i>
+						<p:ajax event="click" listener="#{cc.attrs.limpar}" update="#{cc.clientId}:#{cc.attrs.inputIdCodigo} #{cc.clientId}:#{cc.attrs.inputIdDescricao} #{cc.attrs.update}" 
+							immediate="true" />
+		            </h:commandLink>
+	            </td>
+	            <td>
+					<p:inputText id="#{cc.attrs.inputIdDescricao}" value="#{cc.attrs.inputDescricaoValue}" readonly="true" />
+				</td>
+			</tr>
+		</table>
+	</label>
+	
+	<h:panelGroup id="panelGroup" styleClass="noProcess">
+		<h:panelGroup rendered="#{cc.attrs.managedBean.showPopup}">
+		<p:dialog header="#{cc.attrs.title}" widgetVar="#{cc.clientId}" modal="true" closeOnEscape="true" draggable="true" 
+			responsive="true" resizable="false" style="position: fixed !important; left: 50px !important; right: 50px !important;"
+			closable="true" hideEffect="fade" showEffect="fade" styleClass="noProcess">
+			
+			<p:ajax event="close" update="#{cc.clientId}:panelGroup" listener="#{cc.attrs.managedBean.ocultaPopup()}" global="false" />
+			
+		    <p:dataTable id="table" lazy="true" var="item" value="#{cc.attrs.managedBean.listar(cc.attrs.parametro)}" rowKey="#{item.id}"
+		    	rows="10" reflow="true" paginator="true" rowsPerPageTemplate="10" emptyMessage="Não constam registros." 
+		    	selectionMode="single" selection="#{cc.attrs.inputObject}" skipChildren="true"
+				tableStyleClass="table table-striped" styleClass="table-reflow-desktop noProcess" paginatorPosition="bottom" 
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+				currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords}" filterDelay="500">
+				
+				<p:ajax event="rowSelect" listener="#{cc.attrs.listener}" update="#{cc.clientId}:#{cc.attrs.inputIdCodigo} #{cc.clientId}:#{cc.attrs.inputIdDescricao} #{cc.attrs.update}" oncomplete="PF('#{cc.clientId}').hide();" />
+				
+				<p:columns value="#{cc.attrs.managedBean.columns}" var="column" columnIndexVar="colIndex" sortBy="#{item[column.filter]}" filterBy="#{item[column.filter]}"
+		        	style="#{column.style}">
+		            <f:facet name="header">
+		                <h:outputText value="#{column.header}" />
+		            </f:facet>
+		            <h:outputText value="#{cc.attrs.managedBean.valor(item, column.property)}" />
+		        </p:columns>
+		    </p:dataTable>
+		</p:dialog>
+		</h:panelGroup>
+	</h:panelGroup>
+	
+</composite:implementation>
+
+</html>	

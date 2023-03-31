@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:insert name="head">
+	<ui:include src="head.xhtml" />
+</ui:insert>
+
+<h:body class="">
+
+	<ui:insert name="header">
+		<ui:include src="header.xhtml" />
+	</ui:insert>
+	
+	<ui:insert name="menu">
+		<ui:include src="menu.xhtml" />
+	</ui:insert>
+	
+	
+	<!-- MAIN PANEL -->
+	<div id="main" role="main">
+		<!-- RIBBON -->
+		<div id="ribbon">
+			<!-- breadcrumb -->
+			<ol class="breadcrumb">
+				<li><ui:insert name="title_prefix" /></li>
+				<li><ui:insert name="title_sufix" /></li>
+			</ol>
+		</div>
+		<!-- END RIBBON -->
+
+		<!-- MAIN CONTENT -->
+		<div id="content">
+			<ui:insert name="content" />
+		</div>
+	</div>
+
+	<ui:insert name="footer">
+		<ui:include src="footer.xhtml" />
+	</ui:insert>
+	
+	<ui:insert name="content-script" />
+
+</h:body>
+
+</html>

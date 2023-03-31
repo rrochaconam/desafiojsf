@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+<body>
+    <h:form>
+        <br />
+        <h:commandButton id="btnSubmit" value="Listar fonte de recurso" action="#{helloController.submit}"  />
+        <h:commandButton id="btnClean" value="Limpar" action="#{helloController.clean}"   style="margin-left: 10px;" />
+        <br />
+		<br />
+	    <h:outputText id="idMensagem" value="#{helloController.mensagem}" />
+	    <br/>
+	    <br />
+	    <div class="card">
+		    <p:dataTable id="tabelaFonte" var="item" value="#{helloController.fonteRecursoList}">
+		        <p:column headerText="Código">
+		            <h:outputText value="#{item.codigo}" />
+		        </p:column>
+		        <p:column headerText="Descrição">
+		            <h:outputText value="#{item.descricao}" />
+		        </p:column>
+		    </p:dataTable>
+		</div>
+            
+    </h:form>
+</body>
+</html>

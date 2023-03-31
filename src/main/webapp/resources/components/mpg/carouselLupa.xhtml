@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:mpg="http://java.sun.com/jsf/composite/components/mpg">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="lista" required="true" />
+	<composite:attribute name="title" required="true" />
+	<composite:attribute name="headerText" required="true" />
+	<composite:attribute name="numVisible" required="true" />
+	<composite:attribute name="readonly" required="true" />
+
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<p:commandButton value="" styleClass="btn btn-info btn-sm"
+		onclick="PF('#{cc.clientId}').show();" immediate="true" icon="fa fa-pencil-square-o"
+		style="width: 33px; height: 32px; margin-right: 2px;">
+	</p:commandButton>
+
+	<h:panelGroup id="panelGroup">
+		<p:dialog header="#{cc.attrs.title}" widgetVar="#{cc.clientId}"
+			modal="true" closeOnEscape="true" draggable="true" responsive="true"
+			resizable="false"
+			style="left: 50px !important; right: 50px !important;"
+			closable="true" hideEffect="fade" showEffect="fade"
+			styleClass="noProcess">
+			
+			<h:panelGrid>
+				<p:carousel value="#{cc.attrs.lista}"
+					headerText="#{cc.attrs.headerText}" var="subitem" numVisible="#{cc.attrs.numVisible}"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="1" style="width:100%;margin:10px 0px"
+						columnClasses="value" layout="grid" styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h:outputText value="#{subitem.ano}" />
+						</f:facet>
+	
+						<mpg:money value="#{subitem.valor}" disabled="#{cc.attrs.readonly}" />
+					</p:panelGrid>
+				</p:carousel>
+				<f:facet name="footer">
+					<p:commandButton styleClass="btn btn-primary btn-lg pull-right" value="Ok" immediate="true"
+						oncomplete="PF('#{cc.clientId}').hide();" />
+				</f:facet>
+			</h:panelGrid>
+		</p:dialog>
+	</h:panelGroup>
+
+</composite:implementation>
+
+</html>

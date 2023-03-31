@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:insert name="head">
+	<ui:include src="head.xhtml" />
+</ui:insert>
+
+<h:body class="">
+
+	<ui:insert name="header">
+		<ui:include src="header.xhtml" />
+	</ui:insert>
+	
+	<ui:insert name="menu">
+		<ui:include src="menu.xhtml" />
+	</ui:insert>
+	
+	
+	<!-- MAIN PANEL -->
+	<div id="main" role="main">
+		<!-- RIBBON -->
+		<div id="ribbon">
+			<!-- breadcrumb -->
+			<ol class="breadcrumb">
+				<ui:insert name="breadcrumb" />
+			</ol>
+		</div>
+		<!-- END RIBBON -->
+
+		<!-- MAIN CONTENT -->
+		<div id="content">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h1 class="txt-color-blueDark">
+						<STRONG><ui:insert name="title_sufix" /></STRONG>
+					</h1>
+					<h5 style="margin-top: -8px; margin-bottom: 15px;"><ui:insert name="versao_sufix" /></h5>
+				</div>
+			</div>
+			
+			<!-- Exibe a mensagem de sucesso -->
+			<p:growl id="mensagemSucesso" severity="info" showDetail="true" sticky="true"><p:autoUpdate /></p:growl>
+			<!-- Exibe a mensagem de erro -->
+			<p:messages id="mensagemErro" severity="error" showDetail="false" closable="true"><p:autoUpdate /></p:messages>
+			
+			<!-- widget filtro -->
+			<h:panelGroup rendered="#{renderPanelFilter}">
+			<section id="widget-filtro" class="">
+				<div class="row">
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false">
+							<header>
+								<span class="widget-icon"> <i class="fa fa-filter"></i> </span>
+								<h2>Filtros</h2>				
+							</header>
+							<div>
+								<div class="widget-body no-padding">
+									<h:form id="filterForm" class="smart-form" acceptcharset="ISO-8859-1">
+									
+										<h:panelGroup styleClass="formProcess">
+											<ui:insert name="filter" />
+										</h:panelGroup>
+										<footer>
+								            <p:commandButton styleClass="btn btn-default btn-lg pull-left" icon="fa fa-search" value="Buscar" process="@(.formProcess :input:not(.noProcess))" 
+												onclick="PF('consultaTable').getPaginator().setPage(0);" update="form:consultaTable" />
+								            &#160;
+								            <p:commandButton styleClass="btn btn-primary btn-lg pull-left" icon="fa fa-plus" value="#{button_insert}" rendered="#{renderBotaoIncluir}" 
+												action="#{managedBean.incluir()}" immediate="true" ajax="false" />
+										</footer>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+			</h:panelGroup>
+			
+			<h:form id="form" acceptcharset="ISO-8859-1">
+			<section id="widget-grid" class="">
+				<div class="row">
+					<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false">
+							<header>
+								<span class="widget-icon">
+									<i class="fa fa-table"></i>
+								</span>
+								<h2><ui:insert name="title_sufix" /></h2>
+								<h:commandLink title="Exportar Excel" style="float: right; height: 0px; margin-right: 10px; margin-top: -3px; color: white;">
+							        <i class="fa fa-file-excel-o"></i>
+							        <p:dataExporter type="xls" target="consultaTable" fileName="gridExcel" />
+							    </h:commandLink>
+							</header>
+							<div>
+								<div class="widget-body no-padding">
+									<p:dataTable id="consultaTable" var="item" value="#{managedBean.listar()}" widgetVar="consultaTable" lazy="#{managedBean.consultaLazy}" reflow="true" paginator="true" rows="#{managedBean.rows eq null ? 10 : managedBean.rows}" 
+										rowsPerPageTemplate="5,10,15,20,100" emptyMessage="Não constam registros." tableStyleClass="table table-striped" 
+										styleClass="table-reflow-desktop" paginatorPosition="bottom" 
+										paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+										currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords}">
+										
+										<ui:insert name="table_columns" />
+										
+										<!-- Botões da tela de consulta --> 
+								        <p:column headerText="Ação" style="vertical-align:middle;text-align:center;width: 260px" rendered="#{not escondeColunaAcao}" exportable="false">
+								        	<h:commandLink title="Exibir" action="#{managedBean.exibir(item)}" 
+								        		styleClass="btn btn-info btn-sm">
+								        		<i class="fa fa-search"></i>
+								            </h:commandLink>
+								            &#160;
+											<h:commandLink title="Editar" action="#{managedBean.editar(item)}" 
+												styleClass="btn btn-info btn-sm" rendered="#{renderBotaoEditar and not managedBean.readOnly(item)}">
+												<i class="fa fa-pencil-square-o"></i>
+								            </h:commandLink>
+								            &#160;
+								            <p:commandLink title="Excluir" action="#{managedBean.excluir(item)}" update="consultaTable"
+												styleClass="btn btn-info btn-sm" rendered="#{renderBotaoExcluir and not managedBean.readOnly(item)}">
+								            	<p:confirm header="Aviso" message="#{managedBean.mensagemConfirmacaoExcluir}" />
+								            	<i class="fa fa-trash-o"></i>
+								            </p:commandLink>
+								            <ui:insert name="button_custom" />
+								        </p:column>
+								    </p:dataTable>
+								</div>
+								<!-- end widget content -->
+			
+							</div>
+							<!-- end widget div -->
+			
+						</div>
+						<!-- end widget -->
+					</article>
+					<!-- WIDGET END -->
+			
+				</div>
+				<!-- end row -->
+			
+			</section>
+			<!-- end widget grid -->
+			<p:confirmDialog styleClass="confirmDialogBox" appendToBody="true" global="true" showEffect="fade" hideEffect="fade" closable="false">
+				<p:commandLink value="Sim" title="Sim"
+					styleClass="btn btn-info btn-sm ui-confirmdialog-yes" style="width: 70px">
+	            </p:commandLink>
+	            &#160;&#160;&#160;
+	            <p:commandLink value="Não" title="Não"
+					styleClass="btn btn-info btn-sm ui-confirmdialog-no" style="width: 70px">
+	            </p:commandLink>
+		    </p:confirmDialog>
+			</h:form>
+		</div>
+		<!-- END MAIN CONTENT -->
+
+	</div>
+	<!-- END MAIN PANEL -->
+	
+	<ui:insert name="content" />
+
+	<ui:insert name="footer">
+		<ui:include src="footer.xhtml" />
+	</ui:insert>
+	
+	<ui:insert name="content-script" />
+
+</h:body>
+
+</html>

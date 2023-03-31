@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:fptools="http://java.sun.com/jsf/composite/components/fptools"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="managedBean" required="true" />
+	<composite:attribute name="update" required="true" />
+	<composite:attribute name="readonly" type="java.lang.Boolean" default="false" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+	<!-- Modal -->
+	<div class="modal fade" id="popupEditReceitaValor" style="z-index:900" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-xl">
+			<div class="modal-content">
+				<h:form id="formPopupEditReceitaValor" acceptcharset="ISO-8859-1">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							x
+						</button>
+						<h4 class="modal-title" id="myModalLabel"><strong>Detalhamento das Naturezas</strong></h4>
+					</div>
+					<div class="modal-body">
+						<p:selectManyCheckbox id="grid" value="#{cc.attrs.managedBean.selectedCnrList}" layout="grid" columns="1" styleClass="grid-checkbox" disabled="#{cc.attrs.readonly}" >
+				            <f:selectItems value="#{cc.attrs.managedBean.cnrList}" var="item" itemLabel="#{item.label}" itemValue="#{item.id}"/>
+				        </p:selectManyCheckbox>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Cancelar
+						</button>
+						<h:commandLink value="" actionListener="#{cc.attrs.managedBean.salvarReceitaValorCnr}" styleClass="btn btn-primary btn-sm"
+							rendered="#{not cc.attrs.readonly}">
+			            	<p:ajax process="@form" update="#{cc.attrs.update}" />
+			            	<h:outputText value="  Salvar" />
+			            </h:commandLink>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</composite:implementation>
+
+</html>	

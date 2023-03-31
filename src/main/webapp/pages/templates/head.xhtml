@@ -1,0 +1,48 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<f:view contentType="text/html; charset=ISO-8859-1" />
+	
+	<!-- BEGIN HEAD -->
+	<h:head>
+		<title>Planejamento e Gestão</title>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/smartadmin-production-plugins.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/smartadmin-production.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/smartadmin-skins.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/smartadmin-rtl.min.css" /> 
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/demo.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="#{request.contextPath}/resources/css/mpg.css?build=#{sessaoMPG.versao}" />
+
+		<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon/favicon2.ico" type="image/x-icon" />
+		<link rel="icon" href="#{request.contextPath}/resources/img/favicon/favicon2.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700" />
+		<link rel="apple-touch-icon" href="#{request.contextPath}/resources/img/splash/sptouch-icon-iphone.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="#{request.contextPath}/resources/img/splash/touch-icon-ipad.png" />
+		<link rel="apple-touch-icon" sizes="120x120" href="#{request.contextPath}/resources/img/splash/touch-icon-iphone-retina.png" />
+		<link rel="apple-touch-icon" sizes="152x152" href="#{request.contextPath}/resources/img/splash/touch-icon-ipad-retina.png" />
+	
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		
+		<link rel="apple-touch-startup-image" href="#{request.contextPath}/resources/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+		<link rel="apple-touch-startup-image" href="#{request.contextPath}/resources/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+		<link rel="apple-touch-startup-image" href="#{request.contextPath}/resources/img/splash/iphone.png" media="screen and (max-device-width: 320px)" />
+		
+		<!-- AJAX -->
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onerror="PF('statusDialog').hide()" onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" appendTo="@(body)" styleClass="custom-modal">
+			<p:graphicImage name="/img/ajax_loader.gif" />
+		</p:dialog>
+	</h:head>
+	<!-- END HEAD -->
+</html>

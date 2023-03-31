@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tce.sp.gov.br/audesp/xml/planejamento" version="1.0" xml:lang="pt-BR"
+	xmlns:aux="http://www.tce.sp.gov.br/audesp/xml/auxiliar" xmlns:gen="http://www.tce.sp.gov.br/audesp/xml/generico" xmlns:ppl="http://www.tce.sp.gov.br/audesp/xml/planejamento"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/generico" schemaLocation="../generico/AUDESP_TIPOSGENERICOS_2018_A.XSD"/>
+	
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/auxiliar" schemaLocation="../auxiliar/AUDESP_TABELASAUXILIARES_2018_A.XSD"/>
+	
+	<xs:include schemaLocation="./AUDESP_PECAS_PLANEJAMENTO_2018_A.XSD"/>
+
+	<!-- Namespaces: pecasplanejamento - prefixo: ppl - Conteudo: validacao dos valores da PPA  -->
+	<!-- ========================================================================= -->
+	<xs:annotation>
+		<xs:documentation>
+			<Data>2017-12-19</Data>
+			<VersaoRevisaoAnterior/>
+			<VersaoRevisaoNova>2018_A</VersaoRevisaoNova>
+			<Descricao>Base-Line para 2018</Descricao>
+			<Justificativa>Modelo para inicio de 2018</Justificativa>
+			<Autor>Audesp</Autor>
+		</xs:documentation>
+	</xs:annotation>
+	<!-- ======================================================================== -->
+	<!-- ultima verificação   2012-11-20     -->
+	<!-- ======================================================================== -->
+	<!-- Conteudo do  PPA -->
+	<xs:complexType name="PPAConteudo_t">
+		<xs:sequence>
+			<xs:element  maxOccurs="unbounded" name="Legislacao" type="aux:LegislacaoMunicipal_t"/>
+			<xs:element name="SumarioPPA" type="ppl:SumarioPPA_t"/>   
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProgramaContinuado" type="ppl:ProgramaContinuado_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="EstimativaReceitasPPA" type="ppl:EstimativaReceitasPPA_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<!-- ======================================================================== -->
+	<xs:complexType name="PPAInicial_t">
+			<xs:sequence>
+				<xs:element name="Descritor" type="gen:DescritorPPA_t"/>
+				<xs:element name="PPAConteudo" type="ppl:PPAConteudo_t" /> 
+			</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ========================================================================  -->
+	<!-- /root -->
+	<xs:element name="PPAInicial"  type="ppl:PPAInicial_t"/>	
+	<!-- ======================================================================== -->
+	
+</xs:schema>

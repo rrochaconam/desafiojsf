@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+	targetNamespace="http://www.tce.sp.gov.br/audesp/xml/planejamento" version="1.0"
+	xml:lang="pt-BR" xmlns:aux="http://www.tce.sp.gov.br/audesp/xml/auxiliar"
+	xmlns:gen="http://www.tce.sp.gov.br/audesp/xml/generico"
+	xmlns:ppl="http://www.tce.sp.gov.br/audesp/xml/planejamento"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/generico"
+		schemaLocation="../generico/AUDESP_TIPOSGENERICOS_2021_A.XSD"/>
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/auxiliar"
+		schemaLocation="../auxiliar/AUDESP_TABELASAUXILIARES_2021_A.XSD"/>
+	<!-- ========================================================================= -->
+	<xs:annotation>
+		<xs:documentation>
+			<Data>2020-12-14</Data>
+			<VersaoRevisaoAnterior>2020_A</VersaoRevisaoAnterior>
+			<VersaoRevisaoNova>2021_A</VersaoRevisaoNova>
+			<Descricao>Base-Line para 2021</Descricao>
+			<Justificativa>Modelo para início de 2021</Justificativa>
+			<Autor>Sistema Audesp</Autor>
+		</xs:documentation>
+	</xs:annotation>
+	<!-- ======================================================================== -->
+	<!-- ======================================================================== -->
+	<!-- alterações para 2009  -->
+	<!-- 
+		Tipo de Alteracao
+		0 - Valor Inicial - não enviado por ZML
+		1 - REDUCAO 
+		2 - ADICAO 
+		3 - INCLUSAO
+		
+		Tipo de Ocorrencia
+		0 - Valor Incial - não enciado por XML
+		1 - Anulação Parcial ou Total de Dotação 
+		2 - Excesso de Arrecadação  
+		3 - Superavit Financeiro  
+		4 - Operações de Credito  
+		5 - Reserva de Contingência  
+		6 - Paragrafo 8º do Artigo 166 da Constituição Federal  
+		7 - Artigo 44 da Lei 4.320/64  
+		8 - Valor da LOA-INICIAL  
+		9 - Outros  - excluido na versão de 2009
+		
+		Tipo Crediito 
+		0 - Valor Inicial -  não enciado por XML
+		1 - Suplementar 
+		2 - Especial 
+		3 - Extraordinario
+		4 - Correção da LOA-INICIAL 
+	-->
+	<!-- ======================================================================== -->
+	<xs:simpleType name="TipoLeiPlanejamento_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/> <!-- 1 = PPA INICIAL   -->
+			<xs:enumeration value="2"/> <!-- 2 = LDO INICIAL   -->
+			<xs:enumeration value="3"/> <!-- 3 = LOA INICIAL   -->
+			<xs:enumeration value="4"/> <!-- 4 = PPA ATUALIZACAO   -->
+			<xs:enumeration value="5"/> <!-- 5 = LDO ATUALIZACAO   -->
+			<xs:enumeration value="6"/> <!-- 6 = LOA ATUALIZACAO   -->
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<!-- define se o analitico de receita na LOA é Receita (R) ou Dedução (D)   -->
+	<xs:simpleType name="ReceitaDeducao_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/> <!-- 1 = RECEITA   -->
+			<xs:enumeration value="2"/> <!-- 2 = DEDUCAO   -->
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="Receita_t">
+		<xs:sequence>
+			<xs:element name="Codigo" type="aux:CodigoTipoReceita_t"/>
+		</xs:sequence>
+		<xs:attribute name="Tipo">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="DIRETA"/>
+					<xs:enumeration value="INDIRETA"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- LOA Tipo de Alteração - 2009  utilizado na HistoricoAnaliticoReceita_t  -->
+	<xs:simpleType name="TipoAlteracao_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>  <!-- 1 - REDUCAO  -->
+			<xs:enumeration value="2"/>  <!-- 2 - ADICAO  --> 
+			<xs:enumeration value="3"/>  <!-- 3 - INCLUSAO -->
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="UnidadeMedida_t">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="NomeIndicador_t">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\S.{0,99}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="CodigoIndicador_t">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="32766"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="IndiceIndicador_t">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="QuantidadeIndicador_t">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:simpleType name="QuantidadeMetaFisica_t">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="MFCF_t">
+		<xs:sequence>
+			<xs:element name="QuantidadeMetaFisica" type="ppl:QuantidadeMetaFisica_t"/>
+			<xs:element name="ValorCustoFinanceiro" type="gen:DecimalPositivo_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="IndicadorAnual_t">
+		<xs:sequence>
+			<xs:element name="CodigoIndicador" type="ppl:CodigoIndicador_t"/>
+			<xs:element name="IndiceRecente" type="ppl:IndiceIndicador_t"/>
+			<xs:element name="IndiceFuturo" type="ppl:IndiceIndicador_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- PPA IndicadoresContinuado -->
+	<xs:complexType name="IndicadorPlurianual_t">
+		<xs:complexContent>
+			<xs:extension base="ppl:IndicadorAnual_t">
+				<xs:sequence>
+					<xs:element name="QuantidadeAno1" type="ppl:QuantidadeIndicador_t"/>
+					<xs:element name="QuantidadeAno2" type="ppl:QuantidadeIndicador_t"/>
+					<xs:element name="QuantidadeAno3" type="ppl:QuantidadeIndicador_t"/>
+					<xs:element name="QuantidadeAno4" type="ppl:QuantidadeIndicador_t"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="AcaoDoProgramaLOA_t">
+		<xs:sequence>
+			<xs:element name="EntidadeOrcamentaria" type="gen:EntidadeOrcamentaria_t"/>
+			<xs:element name="FuncaoGoverno" type="aux:CodigoFuncaoGoverno_t"/>
+			<xs:element name="SubfuncaoGoverno" type="aux:CodigoSubfuncaoGoverno_t"/>
+			<!-- <xs:element name="CodigoPrograma" type="gen:CodigoPrograma_t"/>  -->
+			<xs:element name="CodigoAcao" type="gen:CodigoAcao_t"/>
+			<xs:element name="MFCFAno" type="ppl:MFCF_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="ProgramaNaoContinuado_t">
+		<xs:sequence>
+			<xs:element name="CodigoPrograma" type="gen:CodigoPrograma_t"/>
+			<xs:element name="EntidadeOrcamentaria" type="gen:EntidadeOrcamentaria_t"/>
+			<xs:element name="CustoAnualPrograma" type="gen:DecimalPositivo_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="IndicadorAnual" type="ppl:IndicadorAnual_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="AcaoDoProgramaLOA" type="ppl:AcaoDoProgramaLOA_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ========================================================================  -->
+	<xs:complexType name="ProgramaContinuadoAnual_t">
+		<xs:sequence>
+			<xs:element name="CodigoPrograma" type="gen:CodigoPrograma_t"/>
+			<xs:element name="EntidadeOrcamentaria" type="gen:EntidadeOrcamentaria_t"/>
+			<xs:element name="CustoAnualPrograma" type="gen:DecimalPositivo_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="IndicadorAnual" type="ppl:IndicadorAnual_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="AcaoDoProgramaLOA" type="ppl:AcaoDoProgramaLOA_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ========================================================================  -->
+	<!-- PPA - DADOS DA ACAO -->
+	<xs:complexType name="AcaoDoProgramaPPA_t">
+		<xs:sequence>
+			<xs:element name="EntidadeOrcamentaria" type="gen:EntidadeOrcamentaria_t"/>
+			<!-- <xs:element name="FuncaoGoverno" type="aux:CodigoFuncaoGoverno_t"/>  -->
+			<!-- <xs:element name="SubfuncaoGoverno" type="aux:CodigoSubfuncaoGoverno_t"/>  -->
+			<!-- <xs:element name="CodigoPrograma" type="gen:CodigoPrograma_t" /> -->
+			<xs:element name="CodigoAcao" type="gen:CodigoAcao_t"/>
+			<xs:element name="MFCFAno1" type="ppl:MFCF_t"/>
+			<xs:element name="MFCFAno2" type="ppl:MFCF_t"/>
+			<xs:element name="MFCFAno3" type="ppl:MFCF_t"/>
+			<xs:element name="MFCFAno4" type="ppl:MFCF_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ========================================================================  -->
+	<xs:complexType  name="ProgramaContinuado_t" >
+		<xs:sequence>
+			<xs:element name="CodigoPrograma" type="gen:CodigoPrograma_t"/>
+			<xs:element name="EntidadeOrcamentaria" type="gen:EntidadeOrcamentaria_t"/>
+			<xs:element name="CustoTotalPrograma" type="gen:DecimalPositivo_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1"  name="IndicadorPlurianual" type="ppl:IndicadorPlurianual_t"/>  
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="AcaoDoProgramaPPA" type="ppl:AcaoDoProgramaPPA_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- PPA - ESTIMATIVA DAS RECEITAS ORCAMENTARIAS -->
+	<xs:complexType name="EstimativaReceitasPPA_t">
+		<xs:sequence>
+			<xs:element name="Receita" type="ppl:Receita_t"/>
+			<xs:element name="ReceitaDeducao" type="ppl:ReceitaDeducao_t"/> 
+			<xs:element name="ValorAno1" type="gen:DecimalPositivo_t"/>
+			<xs:element name="ValorAno2" type="gen:DecimalPositivo_t"/>
+			<xs:element name="ValorAno3" type="gen:DecimalPositivo_t"/>
+			<xs:element name="ValorAno4" type="gen:DecimalPositivo_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- LDO  Relação de metas fiscais - Anexo I -->
+	<xs:complexType name="MetasFiscais_t">
+		<xs:sequence>
+			<xs:element name="MetasReceitasAnuais" type="gen:DecimalPositivo_t" />
+			<xs:element name="MetasDespesasAnuais" type="gen:DecimalPositivo_t"/>
+			<xs:element name="ResultadoPrimario" type="gen:DecimalValido_t"/>
+			<xs:element name="ResultadoNominal" type="gen:DecimalValido_t"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="MontanteDaDividaFlutuante" type="gen:DecimalValido_t"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="MontanteDaDividaFundada" type="gen:DecimalValido_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ========================================================================  -->
+	<!-- LDO - DADOS DA ACAO -->
+	<xs:complexType name="ListaProgramasPriorizados_t">
+		<xs:sequence>
+			<xs:element  minOccurs="1" maxOccurs="unbounded" name="CodigoPrograma" type="gen:CodigoPrograma_t"/>  
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ========================================================================  -->
+	<xs:complexType name="DemonstrativoAltOrcam_t">
+		<xs:sequence>
+			<xs:element  maxOccurs="1" name="Legislacao" type="aux:LegislacaoMunicipal_t"/>
+			<xs:element name="Finalidade" type="gen:Justificativa_t" />
+			<xs:element name="SuplementacaoAnulacao" type="gen:DecimalPositivo_t"/>
+			<xs:element name="SuplementacaoExcesso" type="gen:DecimalPositivo_t"/>
+			<xs:element name="SuplementacaoSuperavit" type="gen:DecimalPositivo_t"/>
+			<xs:element name="EspecialAnulacao" type="gen:DecimalPositivo_t"/>
+			<xs:element name="EspecialExcesso" type="gen:DecimalPositivo_t"/>
+			<xs:element name="EspecialSuperavit" type="gen:DecimalPositivo_t"/>
+			
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- quadro demonstrativo da execucacao orcamentaria - anexo 18  -->
+	<xs:complexType name="QuadroAnexo18_t">
+		<xs:sequence>
+			<xs:element  name="ReceitaPrevista"  type="gen:DecimalPositivo_t"/>
+			<xs:element name="PercentualAutorizadoSuplementacao" type="gen:DecimalPositivo_t"/>
+			<xs:element  maxOccurs="unbounded" name="DemonstrativoAltOrcam" type="ppl:DemonstrativoAltOrcam_t"/>
+			<xs:element name="TotalSuplementacaoAnulacao" type="gen:DecimalPositivo_t"/>
+			<xs:element name="TotalSuplementacaoExcesso" type="gen:DecimalPositivo_t"/>
+			<xs:element name="TotalSuplementacaoSuperavit" type="gen:DecimalPositivo_t"/>
+			<xs:element name="TotalEspecialAnulacao" type="gen:DecimalPositivo_t"/>
+			<xs:element name="TotalEspecialExcesso" type="gen:DecimalPositivo_t"/>
+			<xs:element name="TotalEspecialSuperavit" type="gen:DecimalPositivo_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ======================================================================== -->
+	<!-- para 2009 -->
+	<xs:complexType name="SumarioPPA_t">
+		<xs:sequence>
+			<xs:element name="QuantidadeProgramas" type="xs:integer"/>
+			<xs:element name="PrevisaoTotalReceitas" type="gen:DecimalPositivo_t"/>
+			<xs:element name="DespesaTotalProgramas" type="gen:DecimalPositivo_t"/>
+			<xs:element name="DespesaTotalAcoes" type="gen:DecimalPositivo_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- para 2009 -->
+	<xs:complexType name="SumarioLDO_t">
+		<xs:sequence>
+			<xs:element name="QuantidadeProgramas" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<!-- para 2009 -->
+	<xs:complexType name="SumarioLOA_t">
+		<xs:sequence>
+			<xs:element name="QuantidadeProgramas" type="xs:integer"/>
+			<xs:element name="DespesaTotalProgramas" type="gen:DecimalPositivo_t"/>
+			<xs:element name="DespesaTotalAcoes" type="gen:DecimalPositivo_t"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ======================================================================== -->
+	<xs:complexType name="LeiDeAlteracao_t">
+		<xs:sequence>
+			<xs:element name="Legislacao" type="aux:LegislacaoMunicipalComDatas_t"/>
+			<xs:element name="TipoLeiPlanejamento" type="ppl:TipoLeiPlanejamento_t"/>
+			<xs:element name="JustificativaDescricao" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType> 
+	
+	<!-- ======================================================================== -->
+</xs:schema>

@@ -1,0 +1,455 @@
+@CHARSET "ISO-8859-1";
+
+a {
+	color: #000;
+}
+
+input[readonly] {
+   background-color: #DCDCDC!Important;
+}
+
+textarea[readonly] {
+   background-color: #DCDCDC!Important;
+}
+
+select[readonly] {
+   background-color: #DCDCDC!Important;
+}
+
+header {
+	font-weight: bold !important;
+}
+
+label {
+    font-weight: bold;
+}
+
+iframe.mensagens {
+	border: 0px solid red;
+	min-height: 700px;
+	width: 100%;
+	overflow-x: hidden !important;
+    margin-left: 10px;
+}
+
+.ui-growl-item-container { 
+	background-color: #FFFFFF;
+	font-weight: normal !important;
+	text-shadow: 1px 1px 0 rgba(0,0,0,0.2) !important;
+	opacity: 1;
+}
+
+.ui-growl-title {
+    font: 15px "Arial", Monaco, monospace;
+    text-align: left;
+}
+
+.ui-outputlabel {
+	font-size: 13px !Important;
+	font-weight: 700 !Important;
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif !Important;
+}
+
+.ui-outputlabel {
+	font-size: 13px !Important;
+	font-weight: 700 !Important;
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif !Important;
+}
+
+.ui-datepicker {
+	z-index: 2000 !Important;
+}
+
+.ui-selectonemenu-label {
+	font: 13px/16px 'Open Sans',Helvetica,Arial,sans-serif !Important;
+	color: #404040 !Important;
+	height: 25px !Important;
+	padding-top: 5px !Important;
+	padding-left: 5px !Important;
+	width: auto !Important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+	margin-top: 8px !Important;
+    margin-left: 4px !Important;
+}
+
+.btoExcluir {
+	width: 60px; 
+	height: 30px; 
+	font-size: 12px; 
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
+
+.ui-picklist-button-add {
+	min-height: 30px;
+}
+
+.ui-picklist-button-add-all {
+	min-height: 30px;
+}
+
+.ui-picklist-button-remove {
+	min-height: 30px;
+}
+
+.ui-picklist-button-remove-all {
+	min-height: 30px;
+}
+.ui-button-icon-only .ui-icon, .ui-button-icons-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon {
+	margin-top: -10px;
+}
+
+.ui-picklist .ui-picklist-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 300px;
+    width: 400px !important;
+}
+
+
+.column1 { 
+width: 10%; 
+} 
+.column2 { 
+width: 20%; 
+}
+.column3 { 
+width: 30%; 
+}
+.column4 { 
+width: 40%; 
+}
+.column5 { 
+width: 50%; 
+}
+.column6 { 
+width: 60%; 
+}
+.column7 { 
+width: 70%; 
+}
+.column8 { 
+width: 80%; 
+}
+.column9 { 
+width: 90%; 
+}
+.column10 { 
+width: 100%; 
+}
+
+.div-align-center {
+	text-align: center;
+}
+
+.div-align-right {
+	text-align: right;
+}
+
+.ui-column-title {
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+	font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+.ui-datatable tbody td {
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+	font-size: 13px;
+    border-style: solid;
+    border-color:#DDD;
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+input {
+    background-color: white !important;
+}
+
+th {
+	background-color: #F7F7F7 !important;
+}
+
+.btn {
+	color: white !important;
+}
+
+.btn-default {
+	color: black !important;
+}
+
+.btn-default2 {
+	color: black !important;
+	height: 31px;
+    margin: 10px 0 0 5px;
+    padding: 0 22px;
+    font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;
+    cursor: pointer;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	width: 20px !important;
+	border-radius: 0;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container {
+	width: 100% !important;
+}
+
+.ui-datagrid-column .ui-selectonemenu-trigger {
+	top: -1px !important;
+    right: -1px !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	color: #FFFFFF !important;
+}
+
+#header {
+	height: 79px !important;
+}
+
+#header>div {
+	height: 79px !important;
+}
+
+#logo-group>span {
+	height: 69px;
+}
+
+#left-panel {
+	padding-top: 79px;
+}
+
+.ui-datatable-tablewrapper {
+	overflow: hidden !important;
+}
+
+.table {
+	margin-bottom: 0px !important;
+}
+
+.ui-datatable .ui-datatable-header {
+	border-color: #45474b!important;
+    background: #4c4f53;
+    color: #fff;
+    text-align: -webkit-auto;
+}
+
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+	border: 1px solid #ddd !important;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border: none !important;
+}
+
+.jarviswidget td:last-child, .jarviswidget th:last-child {
+	border-right: 1px solid #DDD;
+}
+
+.jarviswidget td:first-child, .jarviswidget th:first-child {
+	border-left: 1px solid #DDD;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+	cursor: auto;
+	padding: 5px 1px 1px 0px;
+	width: 100%;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-titlebar {
+	border-color: #45474b!important;
+    background: #4c4f53;
+    color: #fff;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-title {
+	font-size: 14px;
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    color: white;
+    font-weight: normal;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-titlebar-close {
+	position: static;
+    margin-top: 7px;
+    margin-right: 0;
+    color: red;
+    text-shadow: 0 0px 0 #000;
+}
+
+.ui-dialog .ui-dialog-titlebar-close span {
+	position: static;
+    margin-top: -14px;
+    margin-left: -4px;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-content {
+	overflow: visible;
+}
+
+.ui-inputswitch {
+	border: 1px solid #aaa !important;
+    border-radius: 5px !important;
+    height: 26px !important;
+}
+
+.select-popup {
+	display: block !important;
+    padding-right: 1px !important;
+}
+
+.ui-dialog .ui-dialog-footer {
+	height: 45px;
+}
+
+.titleHeadLogin {
+	width: 80%;
+    margin-top: 10px;
+    font-size: 20px;
+    margin-left: -120px;
+    text-align: center;
+}
+
+.ui-dialog {
+	position: fixed !important;
+	left: 50px !important;
+}
+
+.confirmDialogBox{
+	top: 50% !important;
+	left:50% !important;
+	position: fixed;
+	width: 320px;
+}
+
+.custom-modal {
+	left: 50% !important;
+}
+
+.btn-success {
+	color: #fff !important;
+    background-color: #739e73 !important;
+    border-color: #659265 !important;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #3276b1 !important;
+    border-color: #2c699d !important;
+}
+
+.btn-info {
+	color: #fff !important;
+    background-color: #57889c !important;
+    border-color: #4e7a8c !important;
+}
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+	opacity: .65 !important;
+}
+
+.ui-panel .ui-panel-titlebar {
+	border-color: #45474b!important;
+    background: #4c4f53;
+    color: #fff;
+}
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+	width: auto !important;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+    margin-bottom: 1px;
+    border-color: #ccc !important;
+    background: #ccc;
+    color: #000;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-default {
+	margin-bottom: 2px;
+    border-color: #ccc !important;
+    background: #ccc;
+    color: #000;
+}
+
+.ui-accordion .ui-accordion-header .ui-icon {
+	display: -webkit-box !important;
+}
+
+.ui-confirmdialog-yes {
+	margin-top: -15px !important;
+}
+
+.ui-confirmdialog-no {
+	margin-top: -15px !important;
+}
+
+.ui-inputnumber > input {
+	text-align: right !important;
+}
+
+.ui-panel-content .ui-selectonemenu .ui-selectonemenu-trigger {
+	top: -1px !important;
+    right: -1px !important;
+}
+
+.ui-state-highlight .ui-icon {
+	background-image: url(/mpg/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-bootstrap) !important;
+}
+
+.modal-backdrop {
+	position: initial !important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-buttons button {
+	height: 30px !important;
+}
+
+@media ( max-width: 50em) {
+	.table-reflow-desktop thead th,
+	.table-reflow-desktop tfoot td {
+	      display: none;
+	      width: 100% !important;
+	}
+	.table-reflow-desktop .ui-datatable-data td {
+	     text-align: left !important;
+	     display: block;
+	     border: 0px none;
+	     -webkit-box-sizing: border-box;
+	     -moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	     float: left;
+	     clear: left;
+	     width: 100% !important;
+	}
+	.table-reflow-desktop .ui-datatable-data.ui-widget-content {
+	     border: 0px none;
+	     width: 100% !important;
+	}
+	.table-reflow-desktop .ui-datatable-data tr.ui-widget-content {
+	     border-left: 0px none;
+	     border-right: 0px none;
+	     width: 100% !important;
+	}
+	.table-reflow-desktop .ui-datatable-data td .ui-column-title {
+	     padding: .4em;
+	     min-width: 20%;
+	     display: inline-block;
+	     margin: -.4em 1em -.4em -.4em;	     
+	}
+
+	.titleHeadLogin {
+		width: 50%;
+	    margin-top: 20px;
+	    font-size: 15px;
+	    margin-left: 12px;
+	    text-align: center;
+	}
+}

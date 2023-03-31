@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+		
+	<!-- MENU -->
+	<aside id="left-panel" style="z-index:100">
+		<!-- User info -->
+		<div class="login-info">
+			<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
+				<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+					<i class="fa fa-lg fa-user"></i>
+					<h:outputText value="&#160;" />
+					<h:outputText value="&#160;" />
+					<span>
+						<h:outputText value="#{sessaoMPG.operador.nome}" />
+					</span>
+					<i class="fa fa-angle-down"></i>
+				</a>
+			</span>
+		</div>
+		<!-- end user info -->
+
+		<!-- MENU : This navigation is also responsive-->
+		<nav jsf:rendered="#{sessaoMPG.configurado}">
+			<ul>
+				<li id="itemMenuDashboard">
+					<a href="#{request.contextPath}/pages/dashboard/dashboard.xhtml" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i><span class="menu-item-parent"> Dashboard</span></a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-list-alt"></i><span class="menu-item-parent"> PPA e LDO</span></a>
+					<ul>
+						<li id="itemMenuEstrategico-Ciclo" jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+							<a href="#{request.contextPath}/pages/estrategico/ciclo/estrategico_ciclo_listar.xhtml">Ciclo</a>
+						</li>
+						<li id="itemMenuEstrategico-Abertura" jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+							<a href="#{request.contextPath}/pages/estrategico/abertura/estrategico_abertura_listar.xhtml">Abertura/Fechamento</a>
+						</li>
+						<li id="itemMenuEstrategico-Versao-Manter" jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+							<a href="#{request.contextPath}/pages/estrategico/versao/estrategico_versao_listar.xhtml">Versões</a>
+						</li>
+						<h:panelGroup rendered="#{sessaoMPG.estrategicoVersao!=null}">
+							<li id="itemMenuEstrategico-Receita" jsf:rendered="#{sessaoMPG.estrategicoVersao!=null}">
+								<a href="#{request.contextPath}/pages/estrategico/receita/estrategico_receita_listar.xhtml">Receita</a>
+							</li>
+							<li>
+								<a href="#"><span class="menu-item-parent">Despesa</span></a>
+								<ul>
+									<li id="itemMenuEstrategico-ProgramaSelecionar">
+										<a href="#{request.contextPath}/pages/estrategico/programa/estrategico_programa_selecionar.xhtml">Selecionar Programa</a>
+									</li>
+									<li id="itemMenuEstrategico-Despesa">
+										<a href="#{request.contextPath}/pages/estrategico/despesa/estrategico_despesa_listar.xhtml">Lista de Despesas</a>
+									</li>
+								</ul>
+							</li>	
+							<li id="itemMenuTatico-Estruturacao-Tabela2">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_2/tatico_estruturacao_tabela_2_editar.xhtml">Tabela 2</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela3">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_3/tatico_estruturacao_tabela_3_editar.xhtml">Tabela 3</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela4">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_4/tatico_estruturacao_tabela_4_editar.xhtml">Tabela 4</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela5">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_5/tatico_estruturacao_tabela_5_editar.xhtml">Tabela 5</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela6">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_6/tatico_estruturacao_tabela_6_editar.xhtml">Tabela 6</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela61">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_61/tatico_estruturacao_tabela_61_editar.xhtml">Tabela 6.1</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela7">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_7/tatico_estruturacao_tabela_7_listar.xhtml">Tabela 7</a>
+							</li>
+							<li id="itemMenuTatico-Estruturacao-Tabela8">
+								<a href="#{request.contextPath}/pages/tatico/estruturacao/tabela_8/tatico_estruturacao_tabela_8_editar.xhtml">Tabela 8</a>
+							</li>							
+						</h:panelGroup>														
+					</ul>
+				</li>
+				
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i><span class="menu-item-parent"> LOA</span></a>
+					<ul>
+						<li id="itemMenuOperacional-Abertura" jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+							<a href="#{request.contextPath}/pages/operacional/abertura/operacional_abertura_listar.xhtml">Abertura/Fechamento</a>
+						</li>
+						<li id="itemMenuOperacional-Versao" jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+							<a href="#{request.contextPath}/pages/operacional/versao/operacional_versao_listar.xhtml">Versões</a>
+						</li>
+						<h:panelGroup rendered="#{sessaoMPG.operacionalVersao != null}">
+							<li id="itemMenuOperacional-CampoAtuacao">
+								<a href="#{request.contextPath}/pages/operacional/campo_atuacao/operacional_campo_atuacao_listar.xhtml">Campo de Atuação</a>
+							</li>
+							<li>
+								<a href="#"><span class="menu-item-parent">Receita</span></a>
+								<ul>
+									<li id="itemMenuOperacional-Receita-PPP">
+										<a href="#{request.contextPath}/pages/operacional/receita_ppp/operacional_receita_ppp_editar.xhtml">Adivinda PPP</a>
+									</li>
+									<li id="itemMenuOperacional-Receita">
+										<a href="#{request.contextPath}/pages/operacional/receita/operacional_receita_listar.xhtml">Manter</a>
+									</li>
+								</ul>
+							</li>
+							<li id="itemMenuOperacional-Despesa">
+								<a href="#{request.contextPath}/pages/operacional/despesa/operacional_despesa_listar.xhtml">Despesa</a>
+							</li>
+							<li id="itemMenuOperacional-Transferencia-Financeira">
+								<a href="#{request.contextPath}/pages/operacional/transferencia_financeira/operacional_transferencia_financeira_listar.xhtml">Transferência Financeira</a>
+							</li>
+							<li id="itemMenuOperacional-Divida">
+								<a href="#{request.contextPath}/pages/operacional/divida/operacional_divida_listar.xhtml">Dívida</a>
+							</li>
+							<li id="itemMenuOperacional-TextoLei">
+								<a href="#{request.contextPath}/pages/operacional/texto_lei/operacional_texto_lei_editar.xhtml">Texto Lei</a>
+							</li>
+							<li id="itemMenuOperacional-Demonstrativo-Compatibilidade">
+								<a href="#{request.contextPath}/pages/operacional/demonstrativoCompatibilidade/operacional_demonstrativo_compatibilidade_editar.xhtml">Demonstrativo de Compatibilidade</a>
+							</li>
+							<li id="itemMenuOperacional-Investimento">
+								<a href="#{request.contextPath}/pages/operacional/investimento/operacional_investimento_listar.xhtml">Investimento</a>
+							</li>
+							<li id="itemMenuOperacional-Justificativa-Acao">
+								<a href="#{request.contextPath}/pages/operacional/justificativaAcao/operacional_justificativa_acao_editar.xhtml">Justificativa Ação</a>
+							</li>
+							<li id="itemMenuOperacional-Quadro-Subvencao">
+								<a href="#{request.contextPath}/pages/operacional/quadro_subvencao/operacional_quadro_subvencao_listar.xhtml">Quadro Subvenção</a>
+							</li>
+							<li id="itemMenuOperacional-Elaboracao">
+								<a href="#{request.contextPath}/pages/operacional/elaboracao/operacional_elaboracao_listar.xhtml">Elaboração</a>
+							</li>
+							<li id="itemMenuOperacional-FecharEntidade">
+								<a href="#{request.contextPath}/pages/operacional/fechar_entidade/operacional_fechar_entidade.xhtml">Fechar Entidade</a>
+							</li>
+						</h:panelGroup>
+					</ul>
+				</li>
+				<li jsf:rendered="#{sessaoMPG.isLoginPrefeitura()}">
+					<a href="#"><i class="fa fa-lg fa-fw fa-university"></i><span class="menu-item-parent"> Tribunais</span></a>
+					<ul>
+						<li id="itemMenuTribunal-GerarXml">
+							<a href="#{request.contextPath}/pages/tribunal/geracao_xml_editar.xhtml">Gerar</a>
+						</li>
+						<li id="itemMenuTribunal-Pacote">
+							<a href="#{request.contextPath}/pages/tribunal/pacote/pacote_listar.xhtml">Pacotes Enviados</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-book"></i><span class="menu-item-parent"> Cadastros</span></a>
+					<ul>
+						<li id="itemMenuCadastro-Acao">
+							<a href="#{request.contextPath}/pages/cadastro/acao/acao_listar.xhtml">Ação</a>
+						</li>
+						<li id="itemMenuCadastro-AreaAtuacao">
+							<a href="#{request.contextPath}/pages/cadastro/area_atuacao/area_atuacao_listar.xhtml">Área Atuação</a>
+						</li>
+						<li id="itemMenuCadastro-BaseGeografica">
+							<a href="#{request.contextPath}/pages/cadastro/base_geografica/base_geografica_listar.xhtml">Base Geográfica</a>
+						</li>
+						<li id="itemMenuCadastro-CodigoAplicacao">
+							<a href="#{request.contextPath}/pages/cadastro/codigo_aplicacao/codigo_aplicacao_listar.xhtml">Código Aplicação</a>
+						</li>
+						<li id="itemMenuCadastro-FonteInformacao">
+							<a href="#{request.contextPath}/pages/cadastro/fonte_informacao/fonte_informacao_listar.xhtml">Fonte Informação</a>
+						</li>
+						<li id="itemMenuCadastro-Gerente">
+							<a href="#{request.contextPath}/pages/cadastro/gerente/gerente_listar.xhtml">Gerente</a>
+						</li>
+						<li id="itemMenuCadastro-Indicador">
+							<a href="#{request.contextPath}/pages/cadastro/indicador/indicador_listar.xhtml">Indicador</a>
+						</li>
+						<li id="itemMenuCadastro-Indice">
+							<a href="#{request.contextPath}/pages/cadastro/indice/indice_listar.xhtml">Índice</a>
+						</li>
+						<li id="itemMenuCadastro-Interessado">
+							<a href="#{request.contextPath}/pages/cadastro/interessado/interessado_listar.xhtml">Interessado</a>
+						</li>
+						<li id="itemMenuCadastro-Orgao">
+							<a href="#{request.contextPath}/pages/cadastro/orgao/orgao_listar.xhtml">Órgão</a>
+						</li>
+						<li id="itemMenuCadastro-Produto">
+							<a href="#{request.contextPath}/pages/cadastro/produto/produto_listar.xhtml">Produto</a>
+						</li>
+						<li id="itemMenuCadastro-Programa">
+							<a href="#{request.contextPath}/pages/cadastro/programa/programa_listar.xhtml">Programa Candidato</a>
+						</li>
+						<li id="itemMenuCadastro-PublicoAlvo">
+							<a href="#{request.contextPath}/pages/cadastro/publico_alvo/publico_alvo_listar.xhtml">Público Alvo</a>
+						</li>
+						<li id="itemMenuCadastro-ReceitaOrcamentaria">
+							<a href="#{request.contextPath}/pages/cadastro/receita_orcamentaria/receita_orcamentaria_listar.xhtml">Receita Orçamentária</a>
+						</li>
+						<li>
+							<a href="#"><span class="menu-item-parent">Riscos Fiscais</span></a>
+							<ul>
+								<li id="itemMenuCadastro-PassivoContingente">
+									<a href="#{request.contextPath}/pages/cadastro/passivo_contingente/passivo_contingente_listar.xhtml">Passivo Contingente</a>
+								</li>
+								<li id="itemMenuCadastro-DemaisRiscosFiscais">
+									<a href="#{request.contextPath}/pages/cadastro/demais_riscos_fiscais/demais_riscos_fiscais_listar.xhtml">Demais Riscos Fiscais</a>
+								</li>
+							</ul>
+						</li>
+						<li id="itemMenuCadastro-UnidadeMedida">
+							<a href="#{request.contextPath}/pages/cadastro/unidade_medida/unidade_medida_listar.xhtml">Unidade Medida</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-file-text"></i><span class="menu-item-parent"> Relatórios</span></a>
+					<ul>
+						<li>
+							<a href="#"><span class="menu-item-parent">LDO</span></a>
+							<ul>
+								<li id="itemMenuRelatorioLdo-DemonstrativoCompatibilidadeLDOLOA">
+									<a href="#{request.contextPath}/pages/relatorio/demonstrativo_compat_ldo_lda.xhtml">Demonstrativo de Compatibilidade entre a LDO e a LOA</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><span class="menu-item-parent">LOA</span></a>
+							<ul>
+								<li id="itemMenuRelatorioLoa-SumarioGeral">
+									<a href="#{request.contextPath}/pages/relatorio/sumario_geral.xhtml">Sumário Geral da Receita e da Despesa</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-SumarioReceitaFonte">
+									<a href="#{request.contextPath}/pages/relatorio/sumario_receita_fonte.xhtml">Sumário Geral da Receita por Fonte</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-PlanoReceita">
+									<a href="#{request.contextPath}/pages/relatorio/plano_receita.xhtml">Plano de Receita</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-TransferenciaFinanceira">
+									<a href="#{request.contextPath}/pages/relatorio/transferencia_financeira.xhtml">Transferência Financeira - Receita</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-QuadroDetalhamentoDespesa">
+									<a href="#{request.contextPath}/pages/relatorio/quadro_detalhamento_despesa.xhtml">Quadro Detalhamento da Despesa</a>
+								</li>
+								<!-- 
+								<li id="itemMenuRelatorioLoa-EvolucaoDespesa">
+									<a href="#{request.contextPath}/pages/relatorio/evolucao_despesa.xhtml">Evolução da Despesa</a>
+								</li>
+								 -->
+								 <li id="itemMenuRelatorioLoa-ElencoOrgaos">
+									<a href="#{request.contextPath}/pages/relatorio/elenco_orgaos.xhtml">Elenco de Órgãos</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-ElencoProgramas">
+									<a href="#{request.contextPath}/pages/relatorio/elenco_programas.xhtml">Elenco de Programas</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-ElencoAcoes">
+									<a href="#{request.contextPath}/pages/relatorio/elenco_acoes.xhtml">Elenco de Ações</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-InvestimentoEmpresa">
+									<a href="#{request.contextPath}/pages/relatorio/investimento_empresa.xhtml">Investimentos por Empresa</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-DemonstrativoReceitaDespesa">
+									<a href="#{request.contextPath}/pages/relatorio/demonstrativo_receita_despesa.xhtml">Anexo 1 - Demonstrativo da Receita e da Despesa</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-Anexo2Receita">
+									<a href="#{request.contextPath}/pages/relatorio/anexo_2_receita.xhtml">Anexo 2 - Receita</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-Anexo2Despesa">
+									<a href="#{request.contextPath}/pages/relatorio/anexo_2_despesa.xhtml">Anexo 2 - Despesa</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-Anexo2DemonstrativoDespesa">
+									<a href="#{request.contextPath}/pages/relatorio/anexo_2_demonstrativo_despesa.xhtml">Anexo 2 - Demonstrativo da Despesa</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-DemonstrativoProjetoAtividade">
+									<a href="#{request.contextPath}/pages/relatorio/demonstrativo_projeto_atividade.xhtml">Anexo 7 - Demonstrativo por Projeto e Atividade</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-DemonstrativoVinculoRecursos">
+									<a href="#{request.contextPath}/pages/relatorio/demonstrativo_vinculo_recursos.xhtml">Anexo 8 - Demonstrativo conforme Vínculo com os Recursos</a>
+								</li>
+								<li id="itemMenuRelatorioLoa-Anexo9DemonstrativoDespesa">
+									<a href="#{request.contextPath}/pages/relatorio/anexo_9_demonstrativo_despesa.xhtml">Anexo 9 - Demonstrativo da Despesa por Órgão e Funções</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-file-text"></i><span class="menu-item-parent"> Relatório Geral</span></a>
+					<ul>
+						<li id="itemMenuRelatorioGeral-Cadastro">
+							<a href="#{request.contextPath}/pages/relatorio_geral/cadastro/relatorio_geral_cadastro_listar.xhtml">Cadastro</a>
+						</li>
+						<li id="itemMenuRelatorioGeral-Emissao">
+							<a href="#{request.contextPath}/pages/relatorio_geral/emissao/relatorio_geral_emissao_editar.xhtml">Emissão</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-phone-square"></i><span class="menu-item-parent"> Suporte</span></a>
+					<ul>
+						<li id="itemMenuSuporte-Operador">
+							<a href="#{request.contextPath}/pages/suporte/operador/operador_listar.xhtml">Operador</a>
+						</li>
+						<li>
+							<a href="#"><span class="menu-item-parent"> Função</span></a>
+							<ul>
+								<li id="itemMenuSuporte-FuncaoCustomizada">
+									<a href="#{request.contextPath}/pages/suporte/funcao_customizada/funcao_customizada_listar.xhtml">Cadastro</a>
+								</li>
+								<li id="itemMenuSuporte-FuncaoFormula">
+									<a href="#{request.contextPath}/pages/suporte/funcao_formula/funcao_formula_listar.xhtml">Fórmula</a>
+								</li>
+							</ul>
+						</li>
+						<li id="itemMenuSuporte-Parametro">
+							<a href="#{request.contextPath}/pages/suporte/parametro/parametro_editar.xhtml">Parâmetro</a>
+						</li>
+						<li id="itemMenuSuporte-Brasao">
+							<a href="#{request.contextPath}/pages/suporte/brasao/brasao_editar.xhtml">Brasão</a>
+						</li>
+						<li id="itemMenuSuporte-Importador">
+							<a href="#{request.contextPath}/pages/suporte/importador/importador_editar.xhtml">Importador</a>
+						</li>
+						<li id="itemMenuSuporte-Exportador">
+							<a href="#{request.contextPath}/pages/suporte/exportador/exportador_editar.xhtml">Exportador</a>
+						</li>
+						<!-- Funcionalidade para atualização das tabelas apartir das planilhas. 
+						<li id="itemMenuSuporte-Importador">
+							<a href="#{request.contextPath}/pages/suporte/util/update_xls_editar.xhtml">Correção números (despesa, receita, indicador)</a>
+						</li>
+						 -->
+					</ul>
+				</li>
+				<li id="itemMenuMensagem">
+					<a href="#{request.contextPath}/pages/mensagem/mensagem.xhtml" title="Mensagem"><i class="fa fa-lg fa-fw fa-comment"></i><span class="menu-item-parent"> Mensagem</span></a>
+				</li>
+			</ul>
+		</nav>
+		<span class="minifyme" data-action="minifyMenu"> 
+			<i class="fa fa-arrow-circle-left hit"></i> 
+		</span>
+	</aside>
+	<!-- END MENU -->
+</html>

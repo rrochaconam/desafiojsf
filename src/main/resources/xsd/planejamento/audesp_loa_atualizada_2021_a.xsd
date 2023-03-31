@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.tce.sp.gov.br/audesp/xml/planejamento" version="1.0" xml:lang="pt-BR"
+	xmlns:aux="http://www.tce.sp.gov.br/audesp/xml/auxiliar" 
+	xmlns:gen="http://www.tce.sp.gov.br/audesp/xml/generico" 
+	xmlns:ppl="http://www.tce.sp.gov.br/audesp/xml/planejamento"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/generico" schemaLocation="../generico/AUDESP_TIPOSGENERICOS_2021_A.XSD"/>
+	
+	<xs:import namespace="http://www.tce.sp.gov.br/audesp/xml/auxiliar" schemaLocation="../auxiliar/AUDESP_TABELASAUXILIARES_2021_A.XSD"/>
+	
+	<xs:include schemaLocation="./AUDESP_PECAS_PLANEJAMENTO_2021_A.XSD"/>
+	
+	
+	<!-- Namespaces: pecasplanejamento - prefixo: ppl   Conteudo: validacao dos valores da LOA 	-->
+	<!-- ========================================================================= -->
+	<xs:annotation>
+		<xs:documentation>
+			<Data>2020-12-14</Data>
+			<VersaoRevisaoAnterior>2020_A</VersaoRevisaoAnterior>
+			<VersaoRevisaoNova>2021_A</VersaoRevisaoNova>
+			<Descricao>Base-Line para 2021</Descricao>
+			<Justificativa>Modelo para início de 2021</Justificativa>
+			<Autor>Sistema Audesp</Autor>
+		</xs:documentation>
+	</xs:annotation>
+	<!-- ======================================================================== -->
+	<!-- ======================================================================== -->
+	<!-- Conteudo do  LOA -->
+	
+	<xs:complexType name="LOAConteudoAtualizado_t">
+		<xs:sequence>
+			<xs:element  maxOccurs="unbounded" name="Legislacao" type="aux:LegislacaoMunicipal_t"/>
+			<xs:element name="SumarioLOA" type="ppl:SumarioLOA_t"/>   
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProgramaContinuadoAnual" type="ppl:ProgramaContinuadoAnual_t"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProgramaNaoContinuado" type="ppl:ProgramaNaoContinuado_t"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="QuadroAnexo18" type="ppl:QuadroAnexo18_t" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ========================================================================  -->
+	<xs:complexType name="LOAAtualizada_t">
+		<xs:sequence>
+			<xs:sequence>
+				<xs:element name="Descritor" type="gen:DescritorPlanejamentoAtualizacao_t"/>
+				<xs:choice>
+					<xs:element name="DeclaracaoNegativa" type="gen:DeclaracaoNegativa_t" />
+					<xs:element name="LOAConteudoAtualizado" type="ppl:LOAConteudoAtualizado_t" /> 
+				</xs:choice>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ========================================================================  -->
+	<!-- 
+		Regras implicitas:
+		Documento Inicial não deve ter o Quadro Anexo 18	
+	-->
+	<!-- ======================================================================== -->
+	<!-- root  -->
+	<xs:element name="LOAAtualizada"  type="ppl:LOAAtualizada_t"/>
+	<!-- ======================================================================== -->
+	
+	
+</xs:schema>

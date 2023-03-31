@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:mpg="http://java.sun.com/jsf/composite/components/mpg">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="title" required="true" />
+	<composite:attribute name="color" required="true" />
+	<composite:attribute name="textColor" required="false" default="#fff" />
+	<composite:attribute name="list" type="java.util.List" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<div class="btn-group" style="width: 200px; line-height: 100px;">
+		<div class="btn" onclick="javascript:$('##{cc.id}').toggle();" style="background-color: #{cc.attrs.color}; width: 200px; height: 100px; align-items: center; display: flex;">
+			<label style="width: 100%; font-size: 17px; white-space: normal; cursor: pointer; color: #{cc.attrs.textColor}">#{cc.attrs.title}</label>
+		</div>
+		<ul id="#{cc.id}" class="dropdown-menu" style="left: 205px; top: 0px;">
+			<ui:repeat var="item" value="#{cc.attrs.list}">
+				<li style="border-bottom: 1px solid #e5e5e5; border-top: 1px solid #e5e5e5;">
+					<a href="#{request.contextPath}#{item.link}" style="height: 23px; margin-top: 5px;"><b>#{item.descricao}</b></a>
+				</li>
+			</ui:repeat>
+		</ul>
+	</div>
+</composite:implementation>
+
+</html>	
