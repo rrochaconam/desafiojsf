@@ -19,14 +19,16 @@ O objetivo dessa aplicação é servir de base para estudo e avaliação de dese
  - Postgres 12 ou mais recente.
 
 ###  Banco de dados
-- **Script de setup do banco de dados:** \src\main\resources\db\script.sql
-- **Configuração o pool de conexão:** você precisará adicionar algumas linhas ao arquivo de configuração "context.xml" do seu aplicativo. Este arquivo está localizado na pasta "conf" dentro do diretório de instalação do Tomcat.
+ - **Script de setup do banco de dados:** \src\main\resources\db\script.sql
+ - **Configuração o pool de conexão:** você precisará adicionar algumas linhas ao arquivo de configuração "context.xml" do seu aplicativo. Este arquivo está localizado na pasta "conf" dentro do diretório de instalação do Tomcat.
 
     	<Resource name="jdbc/conamDS" auth="Container" type="javax.sql.DataSource"
            maxActive="100" maxIdle="30" maxWait="10000" maxWaitMillis="-1"
            username="postgres" password="postgres" driverClassName="org.postgresql.Driver"
            url="jdbc:postgresql://localhost:5432/desafio"/>
-
+#### Configuração do tomcat para acesso ao postgres
+ - Baixe o driver JDBC do PostgreSQL: você pode baixá-lo diretamente do site oficial do PostgreSQL - https://jdbc.postgresql.org/download/postgresql-42.6.0.jar
+ - Coloque o arquivo do driver JDBC no diretório "lib" do Tomcat: o diretório "lib" geralmente está localizado na pasta "lib" dentro do diretório de instalação do Tomcat.
 
 ###  Página inicial da aplicação
 http://localhost:8080/desafiojsf/pages/hello.xhtml
