@@ -20,7 +20,7 @@ O objetivo dessa aplicação é servir de base para estudo e avaliação de dese
 
 ###  Banco de dados
  - **Script de setup do banco de dados:** \src\main\resources\db\script.sql
- - **Configuração o pool de conexão:** você precisará adicionar algumas linhas ao arquivo de configuração "context.xml" do seu aplicativo. Este arquivo está localizado na pasta "conf" dentro do diretório de instalação do Tomcat.
+ - **Configuração o pool de conexão:** você precisará adicionar algumas linhas ao arquivo de configuração "context.xml" do seu aplicativo. 
 
     	<Resource name="jdbc/conamDS" auth="Container" type="javax.sql.DataSource"
            maxActive="100" maxIdle="30" maxWait="10000" maxWaitMillis="-1"
